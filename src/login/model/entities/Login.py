@@ -1,8 +1,7 @@
+import uuid
 from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, func, or_
 
 from login.model.entities import Base
-
-import uuid
 
 def generateId():
     return str(uuid.uuid4())
@@ -23,3 +22,17 @@ class UsuarioClave(Base):
     debe_cambiarla = Column(Boolean, default=False)
     dirty = Column(Boolean)
     google = Column(Boolean)
+
+
+class LoginLog(Base):
+    __tablename__ = 'login_log'
+
+    id = Column(String(), primary_key=True, default=generateId)
+    creado = Column(DateTime())
+
+    usuario = Column(String())
+    clave = Column(String())
+    
+    status = Column(Boolean())
+
+

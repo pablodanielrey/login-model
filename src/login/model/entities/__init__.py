@@ -4,10 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-from .UsuarioClave import UsuarioClave
-from .ResetClave import ResetClave
-from .Google import ErrorGoogle, RespuestaGoogle
-from .LoginLog import LoginLog
+from .Login import UsuarioClave, LoginLog
 
 def crear_tablas():
     engine = create_engine('postgresql://{}:{}@{}:{}/{}'.format(
@@ -19,10 +16,3 @@ def crear_tablas():
     ), echo=True)
     Base.metadata.create_all(engine)
 
-
-__all__ = [
-    'UsuarioClave',
-    'ResetClave',
-    'ErrorGoogle',
-    'RespuestaGoogle'
-]
