@@ -28,11 +28,14 @@ class LoginLog(Base):
     __tablename__ = 'login_log'
 
     id = Column(String(), primary_key=True, default=generateId)
-    creado = Column(DateTime())
+    created = Column(DateTime())
 
     usuario = Column(String())
     clave = Column(String())
-    
+
+    challenge = Column(String())
+    device_id = Column(String())
+
     status = Column(Boolean())
 
 
