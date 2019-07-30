@@ -38,4 +38,14 @@ class LoginLog(Base):
 
     status = Column(Boolean())
 
+class Device(Base):
+    __tablename__ = 'devices'
+
+    id = Column(String(), primary_key=True, default=generateId)
+    created = Column(DateTime())
+
+    description = Column(String())
+    data = Column(String())
+
+    hash_ = Column(String())
 
