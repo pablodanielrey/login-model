@@ -24,6 +24,17 @@ class UsuarioClave(Base):
     google = Column(Boolean)
 
 
+class UserHash(Base):
+
+    __tablename__ = 'user_hash'
+
+    id = Column(String, primary_key=True, default=generateId)
+    created = Column(DateTime())
+
+    user_id = Column(String())
+    hash_ = Column(String())
+
+
 class LoginLog(Base):
     __tablename__ = 'login_log'
 
@@ -32,6 +43,8 @@ class LoginLog(Base):
 
     usuario = Column(String())
     clave = Column(String())
+
+    hash_ = Column(String())
 
     challenge = Column(String())
     device_id = Column(String())
