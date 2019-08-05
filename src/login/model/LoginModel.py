@@ -8,7 +8,7 @@ from .entities.Login import UsuarioClave, LoginLog, Device, UserHash
 
 class LoginModel:
 
-    def login_hash(self, session, hash_:str, device_id:str, challenge:str):
+    def login_hash(self, session, hash_:str, device_id:str, challenge:str) -> UserHash:
         h = session.query(UserHash).filter(UserHash.hash_ == hash_).one_or_none()
         if h:
             uid = h.user_id
