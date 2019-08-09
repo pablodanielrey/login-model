@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, func, or_
+from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Float, func, or_
 
 from login.model.entities import Base
 
@@ -50,6 +50,18 @@ class LoginLog(Base):
     device_id = Column(String())
 
     status = Column(Boolean())
+
+class UserPositionLog(Base):
+    __tablename__ = 'user_position_log'
+
+    id = Column(String(), primary_key=True, default=generateId)
+    created = Column(DateTime())
+
+    user_id = Column(String())
+    longitude = Column(Float())
+    latitude = Column(Float())
+    timestamp = Column(Integer())
+
 
 class Device(Base):
     __tablename__ = 'devices'
