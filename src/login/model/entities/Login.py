@@ -6,22 +6,21 @@ from login.model.entities import Base
 def generateId():
     return str(uuid.uuid4())
 
+
 class UsuarioClave(Base):
 
     __tablename__ = 'usuario_clave'
 
     id = Column(String, primary_key=True, default=generateId)
-    creado = Column(DateTime())
-    actualizado = Column(DateTime())
+    created = Column(DateTime())
+    updated = Column(DateTime())
 
-    usuario_id = Column(String, nullable=False)
-    usuario = Column(String)
-    clave = Column(String)
-    expiracion = Column(DateTime)
-    eliminada = Column(DateTime)
-    debe_cambiarla = Column(Boolean, default=False)
-    dirty = Column(Boolean)
-    google = Column(Boolean)
+    user_id = Column(String, nullable=False)
+    user = Column(String)
+    credentials = Column(String)
+    expiration = Column(DateTime)
+    deleted = Column(DateTime)
+    temporal = Column(Boolean, default=False)
 
 
 class UserHash(Base):
@@ -41,8 +40,8 @@ class LoginLog(Base):
     id = Column(String(), primary_key=True, default=generateId)
     created = Column(DateTime())
 
-    usuario = Column(String())
-    clave = Column(String())
+    user = Column(String())
+    credentials = Column(String())
 
     hash_ = Column(String())
 
@@ -50,6 +49,7 @@ class LoginLog(Base):
     device_id = Column(String())
 
     status = Column(Boolean())
+
 
 class UserPositionLog(Base):
     __tablename__ = 'user_position_log'

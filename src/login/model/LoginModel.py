@@ -102,7 +102,10 @@ class LoginModel:
         d = Device()
         d.created = datetime.datetime.utcnow()
         d.description = description
-        d.data = json.dumps(device_data)
+        try:
+            d.data = json.dumps(device_data)
+        except Exception:
+            d.data = ''
         d.hash_ = self._generate_hash(d.data)
         session.add(d)
         return d.hash_
