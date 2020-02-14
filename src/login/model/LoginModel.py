@@ -5,7 +5,7 @@ import json
 import datetime
 import uuid
 
-from .entities.Login import UsuarioClave, LoginLog, Device, UserHash, UserPositionLog
+from .entities.Login import UserCredentials, LoginLog, Device, UserHash, UserPositionLog
 
 class LoginModel:
 
@@ -13,7 +13,7 @@ class LoginModel:
         h = session.query(UserHash).filter(UserHash.hash_ == hash_).one_or_none()
         if h:
             uid = h.user_id
-            uc = session.query(UsuarioClave).filter(UsuarioClave.usuario_id == uid, UsuarioClave.eliminada == None).one()
+            uc = session.query(UserCredentials).filter(UserCredentials.user_id == uid, UserCredentials.deleted == None).one()
 
             lid = str(uuid.uuid4())
             lcreated = datetime.datetime.utcnow()
@@ -51,7 +51,7 @@ class LoginModel:
 
     def login(self, session, user: str, password: str, device_id: str, challenge:str, position=None):
 
-        usr = session.query(UsuarioClave).filter(UsuarioClave.usuario == user, UsuarioClave.clave == password, UsuarioClave.eliminada == None).one_or_none()
+        usr = session.query(UserCredentials).filter(UserCredentials.username == user, UserCredentials.credentials == password, UserCredentials.deleted == None).one_or_none()
         hash_ = None
 
         lid = str(uuid.uuid4())

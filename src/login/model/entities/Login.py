@@ -7,7 +7,7 @@ def generateId():
     return str(uuid.uuid4())
 
 
-class UsuarioClave(Base):
+class UserCredentials(Base):
 
     __tablename__ = 'user_credentials'
 
@@ -16,7 +16,7 @@ class UsuarioClave(Base):
     updated = Column(DateTime())
 
     user_id = Column(String, nullable=False)
-    user = Column(String)
+    username = Column(String)
     credentials = Column(String)
     expiration = Column(DateTime)
     deleted = Column(DateTime)
@@ -40,7 +40,7 @@ class LoginLog(Base):
     id = Column(String(), primary_key=True, default=generateId)
     created = Column(DateTime())
 
-    user = Column(String())
+    username = Column(String())
     credentials = Column(String())
 
     hash_ = Column(String())
