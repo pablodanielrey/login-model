@@ -9,7 +9,7 @@ def generateId():
 
 class UsuarioClave(Base):
 
-    __tablename__ = 'usuario_clave'
+    __tablename__ = 'user_credentials'
 
     id = Column(String, primary_key=True, default=generateId)
     created = Column(DateTime())
