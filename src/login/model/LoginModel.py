@@ -57,15 +57,15 @@ class LoginModel:
         lid = str(uuid.uuid4())
         lcreated = datetime.datetime.utcnow()
 
-        if usr and usr.usuario_id:
+        if usr and usr.user_id:
             ''' si no tiene hash le genero uno '''
-            uid = usr.usuario_id
+            uid = usr.user_id
             h = session.query(UserHash).filter(UserHash.user_id == uid).one_or_none()
             if not h:
                 hash_ = self._generate_hash(uid)
                 h = UserHash()
                 h.created = datetime.datetime.utcnow()
-                h.user_id = usr.usuario_id
+                h.user_id = usr.user_id
                 h.hash_ = hash_
                 session.add(h)
             else:
