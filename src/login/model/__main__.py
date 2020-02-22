@@ -3,7 +3,7 @@ def create_tables():
     import os
     from sqlalchemy import create_engine
     from .entities import Base
-    from .entities.Login import UsuarioClave, LoginLog, Device, UserHash, UserPositionLog
+    from .entities.Login import UserCredentials, LoginLog, Device, UserHash, UserPositionLog
 
     engine = create_engine('postgresql://{}:{}@{}:{}/{}'.format(
         os.environ['DB_USER'],

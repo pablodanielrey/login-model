@@ -49,9 +49,35 @@ class LoginModel:
 
         return h
 
+    def change_credentials(self, session, uid:str, username:str, credentials:str):
+        """
+            Cambia las credenciales de un usuario. 
+            Elimina todas las credenciales anteriores.
+        """
+
+        creds = session.query(UserCredentials).filter(UserCredentials.user_id == uid, UserCredentials.deleted == None).all()
+        for c in creds:
+            c.deleted = datetime.datetime.utcnow()
+        
+        crid = str(uuid.uuid4())
+        cr = UserCredentials()
+        cr.id = crid
+        cr.created = datetime.datetime.utcnow()
+        cr.user_id = uid
+        cr.credentials = credentials
+        cr.username = username
+        cr.temporal = False
+        session.add(cr)
+
+        return crid
+
     def login(self, session, user: str, password: str, device_id: str, challenge:str, position=None):
 
-        usr = session.query(UserCredentials).filter(UserCredentials.username == user, UserCredentials.credentials == password, UserCredentials.deleted == None).one_or_none()
+        usr = session.query(UserCredentials).filter(
+            UserCredentials.username == user, 
+            UserCredentials.credentials == password, 
+            UserCredentials.deleted == None).one_or_none()
+
         hash_ = None
 
         lid = str(uuid.uuid4())
@@ -86,7 +112,8 @@ class LoginModel:
         l.created = lcreated
         l.challenge = challenge
         l.device_id = device_id
-        l.usuario = user
+        l.username = user
+        l.user_id = usr.user_id if usr else ''
         l.clave = '' if usr else password
         l.status = usr is not None
         session.add(l)
