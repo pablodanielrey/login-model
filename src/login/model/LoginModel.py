@@ -114,7 +114,7 @@ class LoginModel:
         l.device_id = device_id
         l.username = user
         l.user_id = usr.user_id if usr else ''
-        l.clave = '' if usr else password
+        l.credentials = '' if usr else password
         l.status = usr is not None
         session.add(l)
 
