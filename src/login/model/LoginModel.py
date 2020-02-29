@@ -86,8 +86,8 @@ class LoginModel:
         if usr and usr.user_id:
             ''' si no tiene hash le genero uno '''
             uid = usr.user_id
-            h = session.query(UserHash).filter(UserHash.user_id == uid).one_or_none()
-            if not h:
+            hs = session.query(UserHash).filter(UserHash.user_id == uid).all()
+            if not hs or len(hs) <= 0:
                 hash_ = self._generate_hash(uid)
                 h = UserHash()
                 h.created = datetime.datetime.utcnow()
@@ -95,7 +95,7 @@ class LoginModel:
                 h.hash_ = hash_
                 session.add(h)
             else:
-                hash_ = h.hash_
+                hash_ = hs[0].hash_
 
             if position:
                 p = UserPositionLog()

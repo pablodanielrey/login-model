@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='login-model',
-          version='1.1.6',
+          version='1.1.7',
           description='Modelo de login',
           url='https://github.com/pablodanielrey/login-model',
           author='Desarrollo DiTeSi, FCE',
