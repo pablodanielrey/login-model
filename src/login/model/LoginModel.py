@@ -49,6 +49,27 @@ class LoginModel:
 
         return h
 
+
+    def generate_temporal_credentials(self, session, uid:str, username:str):
+        creds = session.query(UserCredentials).filter(UserCredentials.user_id == uid, UserCredentials.deleted == None).all()
+        for c in creds:
+            c.deleted = datetime.datetime.utcnow()
+
+        credentials = str(uuid.uuid4()).replace('-','')[:8]
+
+        crid = str(uuid.uuid4())
+        cr = UserCredentials()
+        cr.id = crid
+        cr.created = datetime.datetime.utcnow()
+        cr.user_id = uid
+        cr.credentials = credentials
+        cr.username = username
+        cr.temporal = True
+        session.add(cr)
+
+        return credentials
+        
+
     def change_credentials(self, session, uid:str, username:str, credentials:str):
         """
             Cambia las credenciales de un usuario. 
