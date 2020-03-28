@@ -1,10 +1,7 @@
 import uuid
-
-from pulsar.schema import JsonSchema, Record, String
-from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Float, func, or_
-from login.model.entities import Base
-
 from enum import Enum
+
+from pulsar.schema import JsonSchema, Record, String as  PString
 
 class LoginEventTypes(Enum):
     CHANGE_CREDENTIALS = 'CHANGE_CREDENTIALS'
@@ -13,9 +10,14 @@ class LoginEventTypes(Enum):
 
 class LoginEvent(Record):
     """ Evento para pulsar """
-    type_ = String()
-    username = String()
-    credentials = String()
+    type_ = PString()
+    username = PString()
+    credentials = PString()
+
+
+
+from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Float, func, or_
+from login.model.entities import Base
 
 
 def generateId():
