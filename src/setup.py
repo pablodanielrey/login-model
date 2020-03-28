@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='login-model',
-          version='1.1.10',
+          version='1.1.11',
           description='Modelo de login',
           url='https://github.com/pablodanielrey/login-model',
           author='Desarrollo DiTeSi, FCE',
@@ -17,7 +17,8 @@ setup(name='login-model',
           packages=find_packages(exclude=['contrib', 'docs', 'test*']),
           install_requires=[
                             'psycopg2-binary',
-                            'SQLAlchemy'
+                            'SQLAlchemy',
+                            'pulsar-client'
                             ],
           entry_points={
             'console_scripts': [

@@ -1,11 +1,25 @@
 import uuid
-from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Float, func, or_
 
+from pulsar.schema import JsonSchema, Record, String
+from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, Float, func, or_
 from login.model.entities import Base
+
+from enum import Enum
+
+class LoginEventTypes(Enum):
+    CHANGE_CREDENTIALS = 'CHANGE_CREDENTIALS'
+    LOGIN = 'LOGIN'
+    LOGOUT = 'LOGOUT'
+
+class LoginEvent(Record):
+    """ Evento para pulsar """
+    type_ = String()
+    username = String()
+    credentials = String()
+
 
 def generateId():
     return str(uuid.uuid4())
-
 
 class UserCredentials(Base):
 
