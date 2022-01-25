@@ -72,7 +72,7 @@ def generate_users(students, results_file):
                     user = User(id=user_id, firstname=student.name, lastname=student.lastname)
                     session.add(user)
 
-                    email = Mail(email=email_id, type=MailTypes.ALTERNATIVE, confirmed=datetime.datetime.now())
+                    email = Mail(id=email_id, user_id=user_id, type=MailTypes.ALTERNATIVE, confirmed=datetime.datetime.now(), email=student.email)
                     session.add(email)
 
                     idn = IdentityNumber(id=id_id, user_id=user_id, number=student.dni, type=IdentityNumberTypes.DNI)
