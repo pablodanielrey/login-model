@@ -32,7 +32,7 @@ def read_csv(csv_file):
             students.append(Student(name=name, lastname=lastname, dni=dni, number=student_number, passw=passw, email=email))
     return students
 
-def generate_users(students, results_file):
+def generate_users(students, results_file, dry_run = True):
     from login.model import obtener_session as open_login_session
     from users.model import open_session as open_users_session
     from users.model.entities.User import User, IdentityNumber, IdentityNumberTypes, Mail, MailTypes
@@ -79,11 +79,13 @@ def generate_users(students, results_file):
                     idns = IdentityNumber(id=student_id, user_id=user_id, number=student.number, type=IdentityNumberTypes.STUDENT)
                     session.add(idn)
                     session.add(idns)
-                    session.commit()
+                    if not dry_run:
+                        session.commit()
 
                     credentials = UserCredentials(id=login_id, user_id=user_id, username=student.dni, credentials=student.passw, temporal=False)
                     login_session.add(credentials)
-                    login_session.commit()            
+                    if not dry_run:
+                        login_session.commit()            
 
                     results.write(f"{student.dni};{student.name};{student.lastname};{student.number};{student.email};AGREGADO\n")
 
@@ -92,8 +94,9 @@ def generate_users(students, results_file):
 if __name__ == '__main__':
     csv_file = sys.argv[1]
     results_csv = sys.argv[2]
+    dry_run = True if len(sys.argv) <= 3 else bool(sys.argv[3])
     data = read_csv(csv_file)
-    generate_users(data, results_csv)
+    generate_users(data, results_csv, dry_run)
 
 """
 for dni, name, lastname, email in data:
